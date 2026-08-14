@@ -1,5 +1,5 @@
 {
-  "name": "opensight-typecheck",
+  "name": "lensweaver-typecheck",
   "private": true,
   "devDependencies": {
     "@opencode-ai/plugin": "^1.0.0",

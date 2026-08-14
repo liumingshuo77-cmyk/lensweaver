@@ -91,11 +91,11 @@ async function requestCompletion(
   if (config.offline) {
     throw new VisionError(
       "offline",
-      "OpenSight: offline mode is enabled (VISION_OFFLINE=1), cloud vision tasks are disabled. Use vision_ocr for local-only OCR.",
+      "LensWeaver: offline mode is enabled (VISION_OFFLINE=1), cloud vision tasks are disabled. Use vision_ocr for local-only OCR.",
     )
   }
   if (!config.apiBaseUrl) {
-    throw new VisionError("config", "OpenSight: VISION_API_BASE_URL is not set")
+    throw new VisionError("config", "LensWeaver: VISION_API_BASE_URL is not set")
   }
   const headers: Record<string, string> = { "Content-Type": "application/json" }
   if (config.apiKey) headers.Authorization = `Bearer ${config.apiKey}`
@@ -114,12 +114,12 @@ async function requestCompletion(
     })
   } catch (err) {
     if (err instanceof Error && err.name === "TimeoutError") {
-      throw new VisionError("network", `OpenSight: request to ${model} timed out`, true)
+      throw new VisionError("network", `LensWeaver: request to ${model} timed out`, true)
     }
-    throw new VisionError("network", `OpenSight: network error calling ${model}: ${String(err)}`, true)
+    throw new VisionError("network", `LensWeaver: network error calling ${model}: ${String(err)}`, true)
   }
   if (res.status === 401 || res.status === 403) {
-    throw new VisionError("auth", "OpenSight: API key rejected (401/403). Set VISION_API_KEY")
+    throw new VisionError("auth", "LensWeaver: API key rejected (401/403). Set VISION_API_KEY")
   }
   const body = (await res.json().catch(() => ({}))) as {
     error?: { message?: string }
@@ -168,7 +168,7 @@ export class CloudClient {
     if (candidates.length === 0) {
       throw new VisionError(
         "model",
-        "OpenSight: no vision model configured. Set VISION_MODELS or add vision-capable models to VISION_API_BASE_URL",
+        "LensWeaver: no vision model configured. Set VISION_MODELS or add vision-capable models to VISION_API_BASE_URL",
       )
     }
     const maxAttempts = call.maxAttempts ?? this.config.maxRetries + 1
@@ -188,7 +188,7 @@ export class CloudClient {
             messages.push({ role: "user", content: `Your previous output was invalid: ${parsed.error}. Return ONLY a valid JSON object matching the schema exactly.` })
             continue
           }
-          throw new VisionError("parse", `OpenSight: model ${model} returned unparseable JSON after ${parseRetries} retries: ${parsed.error}`)
+          throw new VisionError("parse", `LensWeaver: model ${model} returned unparseable JSON after ${parseRetries} retries: ${parsed.error}`)
         } catch (err) {
           const visionErr = err instanceof VisionError ? err : new VisionError("upstream", String(err))
           if (visionErr.kind === "model") {
@@ -205,7 +205,7 @@ export class CloudClient {
         }
       }
     }
-    throw lastError ?? new VisionError("upstream", "OpenSight: cloud request failed")
+    throw lastError ?? new VisionError("upstream", "LensWeaver: cloud request failed")
   }
 
   private buildMessages(call: StructuredCall): ChatMessage[] {

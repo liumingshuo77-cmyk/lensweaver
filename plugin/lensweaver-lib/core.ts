@@ -49,10 +49,10 @@ export class VisionRuntime {
       (v) => v !== undefined,
     ).length
     if (provided === 0) {
-      throw new Error("OpenSight: provide exactly one of imagePath, imageBase64, or clipboard=true")
+      throw new Error("LensWeaver: provide exactly one of imagePath, imageBase64, or clipboard=true")
     }
     if (provided > 1) {
-      throw new Error("OpenSight: provide only one of imagePath, imageBase64, or clipboard=true")
+      throw new Error("LensWeaver: provide only one of imagePath, imageBase64, or clipboard=true")
     }
     let image: ImageInput
     if (args.imagePath) {
@@ -61,11 +61,11 @@ export class VisionRuntime {
       image = await decodeBase64Image(args.imageBase64)
     } else {
       const clip = await this.worker.clipboard()
-      if (!clip) throw new Error("OpenSight: clipboard does not contain an image")
+      if (!clip) throw new Error("LensWeaver: clipboard does not contain an image")
       image = await decodeBase64Image(clip.image_base64)
     }
     if (image.bytes.length > MAX_IMAGE_BYTES) {
-      throw new Error("OpenSight: image exceeds the 25 MB limit")
+      throw new Error("LensWeaver: image exceeds the 25 MB limit")
     }
     return image
   }
@@ -142,7 +142,7 @@ export class VisionRuntime {
         return { value: local, cached: false, engine: "rapidocr" }
       }
       throw new Error(
-        "OpenSight: offline mode enabled but local OCR produced no readable text. Reason: " +
+        "LensWeaver: offline mode enabled but local OCR produced no readable text. Reason: " +
           (this.worker.unavailableReason ?? "empty result"),
       )
     }

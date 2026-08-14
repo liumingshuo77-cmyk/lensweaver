@@ -6,9 +6,9 @@ import { fileURLToPath } from "node:url"
 import { makeTestImage } from "./test-image.mjs"
 
 const here = dirname(fileURLToPath(import.meta.url))
-process.env.VISION_WORKER_PATH ??= join(here, "..", "plugin", "opensight-lib", "worker.py")
+process.env.VISION_WORKER_PATH ??= join(here, "..", "plugin", "lensweaver-lib", "worker.py")
 
-const cacheFile = `${homedir()}/.cache/opensight/cache.json`
+const cacheFile = `${homedir()}/.cache/lensweaver/cache.json`
 if (existsSync(cacheFile)) rmSync(cacheFile)
 
 const port = 19000 + Math.floor(Math.random() * 500)
@@ -89,7 +89,7 @@ console.log(result.output)
 console.log("metadata:", JSON.stringify(result.metadata))
 
 console.log("\n=== repair unit checks ===")
-const repairMod = await import("../plugin/opensight-lib/repair.ts").catch(() => null)
+const repairMod = await import("../plugin/lensweaver-lib/repair.ts").catch(() => null)
 if (repairMod) {
   const { extractJsonObject } = repairMod
   const cases = [

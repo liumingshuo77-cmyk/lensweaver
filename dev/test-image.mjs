@@ -4,7 +4,7 @@ import { join } from "node:path"
 import { tmpdir } from "node:os"
 
 export function makeTestImage(pythonCmd = process.env.VISION_PYTHON ?? "python") {
-  const dir = mkdtempSync(join(tmpdir(), "opensight-test-"))
+  const dir = mkdtempSync(join(tmpdir(), "lensweaver-test-"))
   const img = join(dir, "test.png")
   const script =
     "from PIL import Image, ImageDraw; import sys; " +

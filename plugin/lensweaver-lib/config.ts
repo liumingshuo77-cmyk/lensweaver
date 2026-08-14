@@ -2,7 +2,7 @@ import { existsSync, readFileSync } from "node:fs"
 import { homedir } from "node:os"
 import { join } from "node:path"
 
-const VISION_ENV_FILE = join(homedir(), ".config", "opencode", "opensight.env")
+const VISION_ENV_FILE = join(homedir(), ".config", "opencode", "lensweaver.env")
 
 function fileEnv(): Record<string, string> {
   const map: Record<string, string> = {}
@@ -53,8 +53,8 @@ const DEFAULT_MODELS = "mimo-v2.5,qwen3.7-plus,qwen3.6-plus"
 
 function defaultPython(): string {
   const candidates = [
-    join(homedir(), ".config", "opencode", "opensight-venv", "Scripts", "python.exe"),
-    join(homedir(), ".config", "opencode", "opensight-venv", "bin", "python"),
+    join(homedir(), ".config", "opencode", "lensweaver-venv", "Scripts", "python.exe"),
+    join(homedir(), ".config", "opencode", "lensweaver-venv", "bin", "python"),
   ]
   return candidates.find((candidate) => existsSync(candidate)) ?? "python"
 }
@@ -65,7 +65,7 @@ export function loadConfig(): VisionConfig {
     .split(",")
     .map((m) => m.trim())
     .filter(Boolean)
-  const cacheDir = firstEnv("VISION_CACHE_DIR") ?? join(homedir(), ".cache", "opensight")
+  const cacheDir = firstEnv("VISION_CACHE_DIR") ?? join(homedir(), ".cache", "lensweaver")
   return {
     apiBaseUrl: base,
     apiKey: firstEnv("VISION_API_KEY", "GROQ_API_KEY", "OPENCODE_GO_API_KEY"),

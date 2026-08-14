@@ -3,7 +3,7 @@ import { fileURLToPath } from "node:url"
 import { makeTestImage } from "./test-image.mjs"
 
 const here = dirname(fileURLToPath(import.meta.url))
-process.env.VISION_WORKER_PATH ??= join(here, "..", "plugin", "opensight-lib", "worker.py")
+process.env.VISION_WORKER_PATH ??= join(here, "..", "plugin", "lensweaver-lib", "worker.py")
 process.env.VISION_OFFLINE ??= "1"
 
 const mod = await import("./dist-test.mjs")

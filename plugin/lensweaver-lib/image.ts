@@ -69,7 +69,7 @@ export async function readImageFile(p: string, baseDir: string): Promise<ImageIn
   const bytes = new Uint8Array(await readFile(resolved))
   const mime = sniffMime(bytes, resolved)
   if (!mime) {
-    throw new Error(`OpenSight: "${p}" is not a supported image (png/jpg/jpeg/webp/gif/bmp)`)
+    throw new Error(`LensWeaver: "${p}" is not a supported image (png/jpg/jpeg/webp/gif/bmp)`)
   }
   return { path: resolved, bytes, mime, dataUrl: dataUrl(bytes, mime) }
 }
@@ -80,11 +80,11 @@ export async function decodeBase64Image(payload: string): Promise<ImageInput> {
   try {
     bytes = new Uint8Array(Buffer.from(cleaned, "base64"))
   } catch {
-    throw new Error("OpenSight: imageBase64 is not valid base64")
+    throw new Error("LensWeaver: imageBase64 is not valid base64")
   }
-  if (bytes.length === 0) throw new Error("OpenSight: imageBase64 is empty")
+  if (bytes.length === 0) throw new Error("LensWeaver: imageBase64 is empty")
   const mime = sniffMime(bytes)
-  if (!mime) throw new Error("OpenSight: imageBase64 does not look like a supported image")
+  if (!mime) throw new Error("LensWeaver: imageBase64 does not look like a supported image")
   return { bytes, mime, dataUrl: dataUrl(bytes, mime) }
 }
 

@@ -7,7 +7,7 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..", "plugin")
 const out = join(dirname(fileURLToPath(import.meta.url)), "dist-test.mjs")
 
 await build({
-  entryPoints: [join(root, "opensight.ts")],
+  entryPoints: [join(root, "lensweaver.ts")],
   outfile: out,
   bundle: true,
   format: "esm",

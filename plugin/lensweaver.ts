@@ -1,10 +1,10 @@
 import type { Plugin } from "@opencode-ai/plugin"
-import { VisionRuntime } from "./opensight-lib/core"
-import { analyzeTool } from "./opensight-lib/tools/analyze"
-import { ocrTool } from "./opensight-lib/tools/ocr"
-import { diagnoseTool } from "./opensight-lib/tools/diagnose"
-import { uiTool } from "./opensight-lib/tools/ui"
-import { codeTool } from "./opensight-lib/tools/code"
+import { VisionRuntime } from "./lensweaver-lib/core"
+import { analyzeTool } from "./lensweaver-lib/tools/analyze"
+import { ocrTool } from "./lensweaver-lib/tools/ocr"
+import { diagnoseTool } from "./lensweaver-lib/tools/diagnose"
+import { uiTool } from "./lensweaver-lib/tools/ui"
+import { codeTool } from "./lensweaver-lib/tools/code"
 
 const server: Plugin = async () => {
   const runtime = new VisionRuntime()
@@ -22,4 +22,4 @@ const server: Plugin = async () => {
   }
 }
 
-export default { id: "opensight", server }
+export default { id: "lensweaver", server }
