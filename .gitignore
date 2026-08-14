@@ -1,0 +1,5 @@
+node_modules/
+dev/dist-test.mjs
+dev/test-env.json
+*.log
+.DS_Store
