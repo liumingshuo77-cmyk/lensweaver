@@ -3,11 +3,11 @@ $ErrorActionPreference = "Stop"
 $repo = $PSScriptRoot
 $ocDir = Join-Path $env:USERPROFILE ".config\opencode"
 $pluginsDir = Join-Path $ocDir "plugins"
-$skillsDir = Join-Path $ocDir "skills\vision"
-$envFile = Join-Path $ocDir "vision-pro.env"
+$skillsDir = Join-Path $ocDir "skills\opensight"
+$envFile = Join-Path $ocDir "opensight.env"
 $packageFile = Join-Path $ocDir "package.json"
 
-Write-Host "== vision-pro install =="
+Write-Host "== OpenSight install =="
 
 New-Item -ItemType Directory -Force -Path $pluginsDir, $skillsDir | Out-Null
 
@@ -27,19 +27,19 @@ if ($package.dependencies.PSObject.Properties["@opencode-ai/plugin"]) {
 $package | ConvertTo-Json -Depth 10 | Set-Content $packageFile -Encoding UTF8
 
 Write-Host "Copying plugin to $pluginsDir ..."
-Copy-Item (Join-Path $repo "plugin\vision-pro.ts") $pluginsDir -Force
-$installedLib = Join-Path $pluginsDir "vision-pro-lib"
+Copy-Item (Join-Path $repo "plugin\opensight.ts") $pluginsDir -Force
+$installedLib = Join-Path $pluginsDir "opensight-lib"
 New-Item -ItemType Directory -Force -Path $installedLib | Out-Null
-Copy-Item (Join-Path $repo "plugin\vision-pro-lib\*") $installedLib -Recurse -Force
+Copy-Item (Join-Path $repo "plugin\opensight-lib\*") $installedLib -Recurse -Force
 
 Write-Host "Copying skill ..."
-Copy-Item (Join-Path $repo "skills\vision\SKILL.md") $skillsDir -Force
+Copy-Item (Join-Path $repo "skills\opensight\SKILL.md") $skillsDir -Force
 
 Write-Host "Setting up Python sidecar ..."
-& (Join-Path $pluginsDir "vision-pro-lib\setup.ps1")
+& (Join-Path $pluginsDir "opensight-lib\setup.ps1")
 
 if (-not (Test-Path $envFile)) {
-    Copy-Item (Join-Path $pluginsDir "vision-pro-lib\vision-pro.env.example") $envFile
+    Copy-Item (Join-Path $pluginsDir "opensight-lib\opensight.env.example") $envFile
     Write-Host "Created $envFile"
 }
 

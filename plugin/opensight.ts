@@ -1,10 +1,10 @@
 import type { Plugin } from "@opencode-ai/plugin"
-import { VisionRuntime } from "./vision-pro-lib/core"
-import { analyzeTool } from "./vision-pro-lib/tools/analyze"
-import { ocrTool } from "./vision-pro-lib/tools/ocr"
-import { diagnoseTool } from "./vision-pro-lib/tools/diagnose"
-import { uiTool } from "./vision-pro-lib/tools/ui"
-import { codeTool } from "./vision-pro-lib/tools/code"
+import { VisionRuntime } from "./opensight-lib/core"
+import { analyzeTool } from "./opensight-lib/tools/analyze"
+import { ocrTool } from "./opensight-lib/tools/ocr"
+import { diagnoseTool } from "./opensight-lib/tools/diagnose"
+import { uiTool } from "./opensight-lib/tools/ui"
+import { codeTool } from "./opensight-lib/tools/code"
 
 const server: Plugin = async () => {
   const runtime = new VisionRuntime()
@@ -22,4 +22,4 @@ const server: Plugin = async () => {
   }
 }
 
-export default { id: "vision-pro", server }
+export default { id: "opensight", server }

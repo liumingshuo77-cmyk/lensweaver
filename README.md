@@ -1,4 +1,4 @@
-# vision-pro
+# OpenSight
 
 给 opencode 纯文本模型 (DeepSeek / GLM 等) 补上"看图"能力的插件。本地 RapidOCR + 云端视觉模型，全部结构化输出。
 
@@ -8,12 +8,12 @@
 - **混合视觉后端**: 本地 RapidOCR (免费离线, 带置信度/bbox) + 云端视觉模型 (OpenAI 兼容)
 - **质量优先**: 每任务独立 prompt + few-shot、Zod Schema 校验、JSON 修复与反馈重试、模型自动回退
 - **成本优化**: 图片降采样预处理、sha256 结果缓存 (TTL 7 天)、本地 OCR 优先
-- **隐私**: 密钥存 `~/.config/opencode/vision-pro.env`, 支持 `VISION_OFFLINE=1` 纯本地模式
+- **隐私**: 密钥存 `~/.config/opencode/opensight.env`, 支持 `VISION_OFFLINE=1` 纯本地模式
 
 ## 架构
 
 ```
-opencode (DS 主模型)                    vision-pro 插件
+opencode (DS 主模型)                    OpenSight 插件
         │                                      │
   需要看图 ──────────── 调用 vision 工具 ────────┤
         │                                      │
@@ -29,9 +29,9 @@ opencode (DS 主模型)                    vision-pro 插件
 
 ```
 plugin/
-├── vision-pro.ts            # 插件入口 (id: vision-pro), 注册 5 个工具
-└── vision-pro-lib/
-    ├── config.ts            # 配置: 环境变量 + vision-pro.env
+├── opensight.ts             # 插件入口 (id: opensight), 注册 5 个工具
+└── opensight-lib/
+    ├── config.ts            # 配置: 环境变量 + opensight.env
     ├── image.ts             # 图片读取 / 魔数嗅探 / 哈希
     ├── schema.ts            # Zod 输出 Schema
     ├── repair.ts            # JSON 提取 / 修复 / 校验
@@ -48,14 +48,14 @@ plugin/
 
 ```powershell
 # 1. 克隆仓库
-git clone https://github.com/liumingshuo77-cmyk/vision-pro
-cd vision-pro
+git clone https://github.com/liumingshuo77-cmyk/opensight
+cd opensight
 
 # 2. 安装: 复制插件 + skill + 初始化 Python 侧车 (venv + rapidocr + pillow)
 powershell -ExecutionPolicy Bypass -File install.ps1
 
 # 3. (可选) 配置视觉后端
-notepad "$env:USERPROFILE\.config\opencode\vision-pro.env"
+notepad "$env:USERPROFILE\.config\opencode\opensight.env"
 ```
 
 重启 opencode 后 5 个工具自动可用。
@@ -94,7 +94,7 @@ opencode TUI 里 `Ctrl+V` 粘贴图片会自动存盘, agent 拿到路径后直�
 | `vision_describe_ui` | `{app_name, components[], visible_text[], layout, problems[], suggestions[]}` |
 | `vision_extract_code` | `{language, code, explanation, confidence}` |
 
-## 配置项 (`vision-pro.env` 或环境变量, 环境变量优先)
+## 配置项 (`opensight.env` 或环境变量, 环境变量优先)
 
 | 变量 | 默认 | 说明 |
 |---|---|---|

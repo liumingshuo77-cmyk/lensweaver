@@ -16,5 +16,5 @@
       "zod": ["./node_modules/zod/index.d.ts"]
     }
   },
-  "include": ["../plugin/vision-pro.ts", "../plugin/vision-pro-lib/**/*.ts"]
+  "include": ["../plugin/opensight.ts", "../plugin/opensight-lib/**/*.ts"]
 }

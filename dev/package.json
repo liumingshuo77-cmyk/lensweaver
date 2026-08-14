@@ -1,5 +1,5 @@
 {
-  "name": "vision-pro-typecheck",
+  "name": "opensight-typecheck",
   "private": true,
   "devDependencies": {
     "@opencode-ai/plugin": "^1.0.0",

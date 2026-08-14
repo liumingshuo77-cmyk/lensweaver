@@ -1,9 +1,9 @@
 ---
 name: vision
-description: Guide for using the vision-pro tools (vision_analyze, vision_ocr, vision_diagnose_error, vision_describe_ui, vision_extract_code) to read images, screenshots and clipboard content with text-only models. Use when the user references an image, pastes a screenshot, asks about an error screenshot, wants UI review, or wants text/code extracted from an image.
+description: Guide for using the OpenSight tools (vision_analyze, vision_ocr, vision_diagnose_error, vision_describe_ui, vision_extract_code) to read images, screenshots and clipboard content with text-only models. Use when the user references an image, pastes a screenshot, asks about an error screenshot, wants UI review, or wants text/code extracted from an image.
 ---
 
-# vision-pro 使用指南
+# OpenSight 使用指南
 
 ## 何时使用
 
@@ -39,7 +39,7 @@ description: Guide for using the vision-pro tools (vision_analyze, vision_ocr, v
 
 ## 配置
 
-`~/.config/opencode/vision-pro.env` 存放 VISION_ 前缀配置:
+`~/.config/opencode/opensight.env` 存放 VISION_ 前缀配置:
 - VISION_API_BASE_URL / VISION_API_KEY / VISION_MODELS: 云端视觉模型 (默认 opencode-go 的 mimo-v2.5)
 - VISION_PYTHON: Python 侧车解释器路径
 - VISION_OFFLINE=1: 纯本地模式 (仅 OCR)

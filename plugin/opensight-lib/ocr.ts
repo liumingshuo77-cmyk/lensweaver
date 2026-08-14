@@ -51,7 +51,7 @@ function handleLine(line: string) {
   pending.delete(msg.id)
   clearTimeout(call.timer)
   if (msg.ok) call.resolve(msg.result)
-  else call.reject(new Error(`vision-pro worker: ${msg.error ?? "unknown error"}`))
+  else call.reject(new Error(`OpenSight worker: ${msg.error ?? "unknown error"}`))
 }
 
 function startWorker(cfg: VisionConfig): ChildProcess {
@@ -84,7 +84,7 @@ function startWorker(cfg: VisionConfig): ChildProcess {
   })
   child.on("exit", (code) => {
     if (proc === child) proc = undefined
-    failPending(`vision-pro worker exited unexpectedly (code ${code})`)
+    failPending(`OpenSight worker exited unexpectedly (code ${code})`)
   })
   return child
 }
@@ -103,7 +103,7 @@ async function rpc<T>(cfg: VisionConfig, type: string, payload: Record<string, u
   return new Promise<T>((resolve, reject) => {
     const timer = setTimeout(() => {
       pending.delete(id)
-      reject(new Error(`vision-pro worker: ${type} timed out after ${timeoutMs}ms`))
+      reject(new Error(`OpenSight worker: ${type} timed out after ${timeoutMs}ms`))
     }, timeoutMs)
     pending.set(id, { resolve, reject, timer })
     const line = JSON.stringify({ id, type, ...payload }) + "\n"
@@ -111,7 +111,7 @@ async function rpc<T>(cfg: VisionConfig, type: string, payload: Record<string, u
       if (err) {
         clearTimeout(timer)
         pending.delete(id)
-        reject(new Error(`vision-pro worker: failed to send ${type}: ${err.message}`))
+        reject(new Error(`OpenSight worker: failed to send ${type}: ${err.message}`))
       }
     })
   })
